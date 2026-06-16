@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+* { box-sizing: border-box; }
+html { background: #03040a; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: radial-gradient(circle at 50% 0%, rgba(47, 20, 89, 0.38), transparent 34%), #03040a;
+  color: #f7fbff;
+}
+body::selection { background: rgba(63, 247, 255, 0.35); }
+
+.cinematic-grid {
+  background-image: linear-gradient(rgba(63, 247, 255, 0.07) 1px, transparent 1px), linear-gradient(90deg, rgba(63, 247, 255, 0.07) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(to bottom, transparent, black 16%, black 72%, transparent);
+}
+
+.noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.46'/%3E%3C/svg%3E");
+}
+
+.glitch {
+  position: relative;
+  text-shadow: 0.04em 0 0 rgba(63, 247, 255, 0.8), -0.03em -0.03em 0 rgba(255, 122, 24, 0.6), 0.03em 0.04em 0 rgba(157, 92, 255, 0.75);
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.78;
+}
+.glitch::before { transform: translate(-2px, -1px); clip-path: inset(0 0 54% 0); color: #3ff7ff; animation: glitch-jump 2.2s infinite steps(2); }
+.glitch::after { transform: translate(2px, 1px); clip-path: inset(48% 0 0 0); color: #ff7a18; animation: glitch-jump 1.7s infinite steps(2) reverse; }
+
+@keyframes glitch-jump {
+  0%, 86%, 100% { transform: translate(0); filter: none; }
+  88% { transform: translate(7px, -2px); filter: blur(0.4px); }
+  91% { transform: translate(-5px, 2px); }
+  94% { transform: translate(3px, 0); }
+}
